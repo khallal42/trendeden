@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test chat</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{% static 'style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+    <div class="chat">
+        <ul>
+            {%for x in messages reversed%}
+            {% if x.sender == user %}
+                <li class="send">{{x.message}}</li>
+            {%else%}
+                <li class="receive">{{x.message}}</li>
+            {%endif%}
+            {% endfor %}
+        </ul>
+        <form method="POST">
+            {% csrf_token %}
+            {{lf}}
+            <input type="submit" value="send">
+        </form>
+    </div>
+    </body>
+</html>
